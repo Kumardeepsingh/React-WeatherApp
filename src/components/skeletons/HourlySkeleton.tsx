@@ -1,5 +1,5 @@
 import Card from '../cards/card'
-import WeatherIcon from '../cards/WeatherIcon'
+import WeatherIcon from '../WeatherIcon'
 import { Skeleton } from '../ui/skeleton'
 
 type Props = {}

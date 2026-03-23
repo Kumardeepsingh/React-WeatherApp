@@ -5,30 +5,30 @@ import {
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "../ui/select"
+} from "../ui/select";
 type Props = {
-  location:string
-  setLocation: Dispatch<SetStateAction<string>>
-}
+  location: string;
+  setLocation: Dispatch<SetStateAction<string>>;
+};
 
-export default function LocationDropdown({location, setLocation}: Props) {
+export default function LocationDropdown({ location, setLocation }: Props) {
   return (
     <Select value={location} onValueChange={(value) => setLocation(value)}>
-  <SelectTrigger className="w-45">
-    <SelectValue placeholder="Theme" />
-  </SelectTrigger>
-  <SelectContent position="popper" className="z-1001">
-    { location === 'custom' && <SelectItem value='custom'>
-      Custom
-    </SelectItem>}
-    {locations.map(city => (
-      <SelectItem key={city} value={city}>
-        {city}
-      </SelectItem>
-    ))}
-  </SelectContent>
-</Select>
-  )
+      <SelectTrigger className=" w-full xs:w-45">
+        <SelectValue placeholder="Theme" />
+      </SelectTrigger>
+      <SelectContent position="popper" className="z-1001">
+        {location === "custom" && (
+          <SelectItem value="custom">Custom</SelectItem>
+        )}
+        {locations.map((city) => (
+          <SelectItem key={city} value={city}>
+            {city}
+          </SelectItem>
+        ))}
+      </SelectContent>
+    </Select>
+  );
 }
 
 const locations = [

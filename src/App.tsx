@@ -16,6 +16,7 @@ import HourlySkeleton from "./components/skeletons/HourlySkeleton";
 import AdditionalInfoSkeleton from "./components/skeletons/AdditionalInfoSkeleton";
 import SidePanel from "./components/SidePanel";
 import Hamburger from "/src/assets/hamburger.svg?react";
+import MobileHeader from "./components/MobileHeader";
 
 function App() {
   const [coordinates, setCoords] = useState<Coords>({ lat: 40, lon: 55 });
@@ -40,19 +41,23 @@ function App() {
 
   return (
     <>
-      <div className="flex flex-col gap-8 p-8 w-full lg:w-[calc(100dvw-var(--sidebar-width))] 2xl:h-screen">
-        <div className="flex  flex-col md:flex-row gap-2 md:gap-4">
-          <div className="flex gap-4">
+      <MobileHeader setIsSidePanelOpen={setIsSidePanelOpen} />
+      <div className="flex flex-col gap-8 pt-4 p-8 xs:pt-8 w-full lg:w-[calc(100dvw-var(--sidebar-width))] 2xl:h-screen 2xl:min-h-280">
+        <div className="flex  flex-col gap-4 xs:flex-row xs:gap-8">
+          <div className="flex  flex-col md:flex-row gap-2 md:gap-4">
             <h1 className="text-2xl font-semibold">Location: </h1>
             <LocationDropdown location={location} setLocation={setLocation} />
           </div>
-          <div className="flex gap-4">
+          <div className="flex  flex-col md:flex-row gap-2 md:gap-4">
             <h1 className="text-2xl font-semibold whitespace-nowrap">
               Map Type:{" "}
             </h1>
             <MapTypeDropdpown mapType={mapType} setMapType={setMapType} />
           </div>
-          <button onClick={() => setIsSidePanelOpen(true)}>
+          <button
+            onClick={() => setIsSidePanelOpen(true)}
+            className="hidden xs:block"
+          >
             <Hamburger className="size-6 invert ml-auto lg:hidden" />
           </button>
         </div>

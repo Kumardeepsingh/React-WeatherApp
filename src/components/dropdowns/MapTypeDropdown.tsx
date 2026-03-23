@@ -5,27 +5,27 @@ import {
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "../ui/select"
+} from "../ui/select";
 type Props = {
-  mapType:string
-  setMapType: Dispatch<SetStateAction<string>>
-}
+  mapType: string;
+  setMapType: Dispatch<SetStateAction<string>>;
+};
 
-export default function MapTypeDropdpown({mapType, setMapType}: Props) {
+export default function MapTypeDropdpown({ mapType, setMapType }: Props) {
   return (
     <Select value={mapType} onValueChange={(value) => setMapType(value)}>
-  <SelectTrigger className="w-45">
-    <SelectValue placeholder="Theme" />
-  </SelectTrigger>
-  <SelectContent position="popper" className="z-1001">
-    {types.map(city => (
-      <SelectItem key={city} value={city} className="capitalize">
-        {city.split('_')[0]}
-      </SelectItem>
-    ))}
-  </SelectContent>
-</Select>
-  )
+      <SelectTrigger className="w-full xs:w-45">
+        <SelectValue placeholder="Theme" />
+      </SelectTrigger>
+      <SelectContent position="popper" className="z-1001">
+        {types.map((city) => (
+          <SelectItem key={city} value={city} className="capitalize">
+            {city.split("_")[0]}
+          </SelectItem>
+        ))}
+      </SelectContent>
+    </Select>
+  );
 }
 
 const types = [

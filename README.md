@@ -129,8 +129,8 @@ npm install
 Create `.env.local`:
 
 ```
-VITE_WEATHER_API_KEY=your_key
-VITE_MAP_API_KEY=your_key
+VITE_WEATHER_API_KEY=your_key                // OpenWeather API
+VITE_MAP_API_KEY=your_key                    // MAPTILER API
 ```
 
 ### 4. Run app

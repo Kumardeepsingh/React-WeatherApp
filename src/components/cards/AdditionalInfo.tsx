@@ -27,7 +27,7 @@ export default function AdditionalInfo({ coords }: Props) {
         <div className="flex justify-between" key={value}>
           <div className="flex gap-4">
             <span className="text-gray-500">{label}</span>
-            <Icon className="size-6 invert" />
+            <Icon className="size-6 " />
           </div>
           <span>
             <FormatComponent value={value} number={data.current[value]} />
@@ -49,7 +49,7 @@ function FormatComponent({ value, number }: { value: string; number: number }) {
   if (value === "wind_deg")
     return (
       <UpArrow
-        className="size-6 invert"
+        className="size-6 "
         style={{ transform: `rotate(${number}deg)` }}
       />
     );

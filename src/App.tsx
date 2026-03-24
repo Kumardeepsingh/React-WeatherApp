@@ -3,7 +3,7 @@ import HourlyForecast from "./components/cards/HourlyForecast";
 import CurrentWeather from "./components/cards/CurrentWeather";
 import AdditionalInfo from "./components/cards/AdditionalInfo";
 import Map from "./components/Map";
-import { Suspense, useState } from "react";
+import { Suspense, useCallback, useMemo, useRef, useState } from "react";
 import type { Coords } from "./types";
 import LocationDropdown from "./components/dropdowns/LocationDropdown";
 import { useQuery } from "@tanstack/react-query";
@@ -17,27 +17,40 @@ import AdditionalInfoSkeleton from "./components/skeletons/AdditionalInfoSkeleto
 import SidePanel from "./components/SidePanel";
 import Hamburger from "/src/assets/hamburger.svg?react";
 import MobileHeader from "./components/MobileHeader";
+import LightDarkToggle from "./components/LightDarkToggle";
 
 function App() {
   const [coordinates, setCoords] = useState<Coords>({ lat: 40, lon: 55 });
   const [location, setLocation] = useState("Tokyo");
-  const [mapType, setMapType] = useState("clouds_new");
+  const [mapType, setMapType] = useState("temp_new");
   const [isSidePanelOpen, setIsSidePanelOpen] = useState(false);
+  const prevGeocodeCoords = useRef<Coords | null>(null);
 
   const { data: geocodeData } = useQuery({
     queryKey: ["geocode", location],
     queryFn: () => getGeoCode(location),
   });
 
-  const onMapClick = (lat: number, lon: number) => {
+  const onMapClick = useCallback((lat: number, lon: number) => {
     setCoords({ lat, lon });
     setLocation("custom");
-  };
+  }, []);
 
-  const coords =
-    location === "custom"
-      ? coordinates
-      : { lat: geocodeData?.[0].lat ?? 0, lon: geocodeData?.[0].lon ?? 0 };
+  const geocodeCoords = geocodeData?.[0]
+    ? { lat: geocodeData[0].lat, lon: geocodeData[0].lon }
+    : null;
+
+  // Update ref whenever we have fresh geocode data
+  if (geocodeCoords) {
+    prevGeocodeCoords.current = geocodeCoords;
+  }
+
+  const coords = useMemo(() => {
+    if (location === "custom") return coordinates;
+    if (geocodeCoords) return geocodeCoords;
+    if (prevGeocodeCoords.current) return prevGeocodeCoords.current; // use last known
+    return coordinates;
+  }, [location, coordinates, geocodeCoords]);
 
   return (
     <>
@@ -54,12 +67,17 @@ function App() {
             </h1>
             <MapTypeDropdpown mapType={mapType} setMapType={setMapType} />
           </div>
-          <button
-            onClick={() => setIsSidePanelOpen(true)}
-            className="hidden xs:block"
-          >
-            <Hamburger className="size-6 invert ml-auto lg:hidden" />
-          </button>
+          <div className="ml-auto flex gap-4 items-center">
+            <div className="hidden xs:block">
+              <LightDarkToggle />
+            </div>
+            <button
+              onClick={() => setIsSidePanelOpen(true)}
+              className="hidden xs:block"
+            >
+              <Hamburger className="size-6   lg:hidden" />
+            </button>
+          </div>
         </div>
         <div className="grid grid-cols-1 2xl:flex-1 2xl:min-h-0 md:grid-cols-2 2xl:grid-cols-4 2xl:grid-rows-4 gap-4">
           <div className="relative h-120 2xl:h-auto col-span-1 md:col-span-2 2xl:col-span-4 2xl:row-span-2 order-1">

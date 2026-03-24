@@ -15,7 +15,7 @@ export default function HourlyForecast({ coords }: Props) {
   return (
     <Card
       title="Hourly Forecast (48 Hours)"
-      childrenClassName="flex gap-6 overflow-x-scroll"
+      childrenClassName="flex gap-6 overflow-x-scroll custom-scrollbar"
     >
       {data.hourly.map((hour) => (
         <div

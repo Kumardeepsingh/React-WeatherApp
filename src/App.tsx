@@ -55,19 +55,19 @@ function App() {
   return (
     <>
       <MobileHeader setIsSidePanelOpen={setIsSidePanelOpen} />
-      <div className="flex flex-col gap-8 pt-4 p-8 xs:pt-8 w-full lg:w-[calc(100dvw-var(--sidebar-width))] 2xl:h-screen 2xl:min-h-280">
+      <div className="flex flex-col gap-8 pt-4 p-8 xs:pt-8 w-full l:w-[calc(100dvw-var(--sidebar-width))] 2xl:h-screen 2xl:min-h-280">
         <div className="flex  flex-col gap-4 xs:flex-row xs:gap-8">
-          <div className="flex  flex-col md:flex-row gap-2 md:gap-4">
+          <div className="flex  flex-col m:flex-row gap-2 m:gap-4">
             <h1 className="text-2xl font-semibold">Location: </h1>
             <LocationDropdown location={location} setLocation={setLocation} />
           </div>
-          <div className="flex  flex-col md:flex-row gap-2 md:gap-4">
+          <div className="flex  flex-col m:flex-row gap-2 m:gap-4">
             <h1 className="text-2xl font-semibold whitespace-nowrap">
               Map Type:{" "}
             </h1>
             <MapTypeDropdpown mapType={mapType} setMapType={setMapType} />
           </div>
-          <div className="ml-auto flex gap-4 items-center">
+          <div className="ml-auto flex gap-4 items-center pt-0">
             <div className="hidden xs:block">
               <LightDarkToggle />
             </div>
@@ -75,7 +75,7 @@ function App() {
               onClick={() => setIsSidePanelOpen(true)}
               className="hidden xs:block"
             >
-              <Hamburger className="size-6   lg:hidden" />
+              <Hamburger className="size-6   l:hidden" />
             </button>
           </div>
         </div>

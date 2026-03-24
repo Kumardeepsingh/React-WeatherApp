@@ -26,7 +26,7 @@ export default function SidePanel(props: Props) {
       )}
     >
       <button onClick={() => setIsSidePanelOpen(false)}>
-        <Chevron className="size-8  -ml-2 lg:hidden" />
+        <Chevron className="size-8  -ml-2 l:hidden" />
       </button>
       <Suspense fallback={<SidePanelSkelton />}>
         <AirPollutuion {...props} />
@@ -127,7 +127,7 @@ function AirPollutuion({ coords }: Props) {
                     "px-2 py-1 rounded-md text-xs font-medium",
                     quality === currentLevel
                       ? qualityColor
-                      : "bg-muted text-muted-foreground",
+                      : "bg-muted text-muted-foreground shadow",
                   )}
                 >
                   {quality}
